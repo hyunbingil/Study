@@ -173,8 +173,47 @@ for count in range(3):\
 
 (3) for 중첩하기
 - 예제\
-for i in range(2):
-       for j in range(2):
+for i in range(2):\
+       for j in range(2):\
               print('i:{}, j:{}'.format(i,j))
               
 ~> 출력 : 0, 0 / 0, 1 / 1, 0 / 1, 1 
+
+(4) Comprehension(리스트 내포)
+: 리스트를 만드는데 for를 사용해서 간결하게 만들 수 있는 방법
+
+- 예제\
+numbers = [1,2,3,4,5,6,7,8,9,10]\
+odd_numbers = [number for number in numbers if number % 2 = 1]
+>numbers = [1,2,3,4,5,6,7,8,9,10]\
+odd_numbers = []\
+for number in numbers:\
+       if number % 2 == 1:\
+              odd_numbers.append(number)와 같다.
+
+### 조건 판단하기
+#### 0. 필요한 요소들 짚고 넘어가기
+(1) 논리형(True/False)\
+: 참 혹은 거짓이라는 두개의 값을 가지고 있다. 논리연산자와 비교연산자의 결과로 많이 사용
+- 예제\
+my_bool1 = True\
+my_bool2 = 1==2(이것은 False이므로 False가 저장)
+
+(2) 비교연산자\
+: 여러개의 값을 비교할 수 있는 연산자.
+- 형태
+  - == : 같는가? 같으면 True, 다르면 False
+  - != : 다른가? 다르면 True, 같으면 False
+  - '>/< : 부등호
+  - '>=/<= : 크거나 같는가
+  
+(3) 논리연산자(and/or/not)
+- 형태
+  - and : 둘 다 True 일때만 True
+  - or : 하나만 True여도 True
+  - not : 뒤에 논리형을 뒤집는다.
+- 사용하는 곳
+: 제한을 걸어둘 때
+>ex) 이 놀이기구는 6세이상이고 키는 140cm이상만 탑승이 가능합니다.
+
+#### 1. 
