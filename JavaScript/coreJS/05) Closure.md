@@ -148,7 +148,74 @@
 
 ### 03. 클로저 활용 사례
 #### 1) 콜백 함수 내부에서 외부 데이터를 사용하고자 할 때
-....오늘 콜백 함수 너무 많이 해서 지금 보기도 싫어요 내일 수정할래.요..
+: 외부 데이터에 주목하면서 흐름을 따라가보자.
+(1) 콜백 함수를 내부함수로 선언해 외부변수를 직접 참조
+
+    var fruits = ['apple', 'banana', 'peach'];
+    var $ul = document.createElement('ul');
+
+    fruits.forEach(function(fruit) { // (A)
+        var $li = document.createElement('li');
+        $li.innerText = fruit;
+        $li.addEventListener('click', function() { 
+            // (B)
+            alert('your choice is ' + fruit);
+        });
+        $ul.appendChild($li);
+    });
+    document.body.appendChild($ul);
+> (A) 내부에서 외부 변수를 사용 X ~> 클로저 X.\
+fruits의 개수만큼 실행, 그때마다 새로운 실행 컨텐스트 활성화.
+>> (B)에는 fruit라는 외부 변수 참조하고 있음 ~> 클로저 O.\
+(B)의 outerEnvironmentReference가 (A)의 LexicalEnvironment를 참조. (B) 함수가 참조할 예정인 변수 fruit에 대해서는 (A) 종료 후에도 GC 대상에서 제외되어 계속 참조 가능.
+
+(1)-1 반복을 줄이기 위해 (B)를 외부로 분리해보자.
+
+        var alertFruit = function(fruit) {
+            alert('your choice is ' + fruit);
+        };
+        fruits.forEach(function (fruit) {
+            var $li = document.createElement('li');
+            $li.innerText = fruit;
+            $li..addEventListener('click', alertFruit);
+            $ul.appendChild($li);
+        });
+        document.body.appendChild($ul);
+        alertFruit(fruits[1]);
+> banana에 대한 얼럿이 실행되지만, 각 li를 클릭하면 대상의 과일명이 아니라 [object MouseEvent]라는 값이 출력된다. 콜백 함수의 인자에 대한 제어권을 addEventListener가 가진 상태고, addEventListener는 콜백 함수를 호출할 때 첫 번째 인자에 '이벤트 객체'를 주입하기 때문.
+
+==> bind 메서드 사용하면 해결 가능!
+
+(2) bind 메서드를 사용하면 . . .
+
+        fruits. forEach(function (fruit) {
+            var $li = document.createElement('li');
+            $li.innerText = fruit;
+            $li.addEventListener('click', alertFruit.bind(null, fruit));
+            $ul.appendChild($li);
+        });
+> 하지만 이렇게 하면 이벤트 객체가 인자로 넘어오는 순서가 바뀌는점, 함수 내부에서의 this가 원래의 this와는 달라지는 점을 감안해야함.
+>> bind 메서드의 첫 번째 인자가 바로 새로 바인딩할 this인데, 이 값을 생략할 수 없기 때문에ㅠ 여기서는 두 번째 인자에 이벤트 객체가 넘어올 것이다.
+
+==> 이런 변경사항이 발생하지 않게 하기 위해서는 고차함수를 활용하면 된다.
+
+(3) 고차함수
+: 함수를 인자로 받거나 함수를 리턴하는 함수.
+
+        var alertFruitBuilder = function (fruit) {
+            return function() {
+                alert('your choice is' + fruit);
+            };
+        };
+        fruits.forEach(function (fruit) {
+            var $li = document.createElement('li');
+            $li.innerText = fruit;
+            $li.addEventListener('click', alertFruitBuilder(fruit)); // 함수 실행, fruit 값 인자로 전달. ~> 실행 결과가 함수가 되서 반환된 함수를 콜백 함수로써 전달.
+            $ul.appendChild($li);
+        });
+> alertFruitBuilder 함수가 익명의 함수를 return하는데, 이 함수가 위에서 사용했던 alertFruit함수.
+>> 클릭 이벤트 발생시 alertFruit 함수의 실행 컨텍스트가 열리면서 alertFruitBuiler의 인자로 넘어온 fruit를 outerEnvironmentReference에 의해 참조할 수 O
+>>> 즉 이 함수에는 클로저가 존재.        
 
 #### 2) 접근 권한 제어(정보 은닉)
 - 정보 은닉(information hiding)
@@ -186,12 +253,157 @@
     console.log(addPartial(6, 7, 8, 9, 10));
 > this의 값을 변경할 수 없기 때문에 메서드에서 사용할 수 X.
 
-집중력 떨어져서 뭐라는지 모르겠어 진짜 멍청인가 내일 다시 제대로 빡 집 중 해서 봐야 이해 가능할듯.......
+    var partial = function() {
+        var originalPartialArgs = arguments;
+        var func = originalPartialArgs[0];
+        if (typeof func !== 'function') {
+            throw new Error('첫 번째 인자가 함수가 아닙니다.');
+    }
+    return function() {
+        var partialArgs = Array.prototype.slice.call(originalPartialArgs, 1);
+        var restArgs = Array.prototype.slice.call(arguments);
+        return func.apply(this, partialArgs.concat(restArgs));
+        };
+    };
+
+    var add = function() {
+        var result = 0;
+        for (var i = 0; i < arguments.length; i++) {
+            result += arguments[i];
+        }
+        return result;
+    };
+    var addPartial = partial(add, 1, 2, 3, 4, 5);
+    console.log(addPartial(6, 7, 8, 9, 10)); // 55
+> 첫 번째 인자에는 원본 함수를, 두 번째 인자부터는 미리 적용할 인자들을 전달하고, 반환할 함수(부분 적용 함수)에서는 다시 나머지 인자들을 받아 이들을 한데 모아(concat) 원본 함수를 호출(apply)한다.
+>> 실행 시점의 this를 그대로 반영해 this에는 아무런 영향을 주지 X.
+>>> 부분 적용 함수에 넘길 인자를 반드시 앞에서부터 차례로 전달할 수 밖에 없다는 점이 아쉽.
+
+- 전역객체에 _라는 프로퍼티 준비
+: '비워놓음' 표시를 위해\
+: 처음에 넘겨준 인자들 중 _로 비워놓은 공간마다 나중에 넘어온 인자들이 차례대로 끼워넣도록 구현
+> 이자 개수를 맞춰 미리 빈 공간 확보 안해도 된다.
+
+```js
+Object.defineProperty(window, '_', {
+  value: 'EMPTY_SPACE',
+  writable: false,
+  configurable: false,
+  enumerable: false,
+});
+
+var partial2 = function() {
+  var originalPartialArgs = arguments;
+  var func = originalPartialArgs[0];
+  if (typeof func !== 'function') {
+    throw new Error('첫 번째 인자가 함수가 아닙니다.');
+  }
+  return function() {
+    var partialArgs = Array.prototype.slice.call(originalPartialArgs, 1);
+    var restArgs = Array.prototype.slice.call(arguments);
+    for (var i = 0; i < partialArgs.length; i++) {
+      if (partialArgs[i] === _) {
+        partialArgs[i] = restArgs.shift();
+      }
+    }
+    return func.apply(this, partialArgs.concat(restArgs));
+  };
+};
+
+var add = function() {
+  var result = 0;
+  for (var i = 0; i < arguments.length; i++) {
+    result += arguments[i];
+  }
+  return result;
+};
+var addPartial = partial2(add, 1, 2, _, 4, 5, _, _, 8, 9);
+console.log(addPartial(3, 6, 7, 10)); // 55
+
+var dog = {
+  name: '강아지',
+  greet: partial2(function(prefix, suffix) {
+    return prefix + this.name + suffix;
+  }, '왈왈, '),
+};
+dog.greet(' 배고파요!'); // 왈왈, 강아지 배고파요!
+```
+
+- 디바운스(debounce)
+: 짧은 시간 동안 동일한 이벤트가 많이 발생할 경우 이를 전부 처리하지 않고 처음 또는 마지막에 발생한 이벤트에 대해 한 번만 처리하는 것.
+> 프론트엔드 성능 최적화에 큰 도움.
+>> scroll, wheel, mousemove, resize 등에 적용하기 좋음.
+
+```js
+var debounce = function(eventName, func, wait) {
+  var timeoutId = null;
+  return function(event) {
+    var self = this;
+    console.log(eventName, 'event 발생');
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(func.bind(self, event), wait);
+  };
+};
+
+var moveHandler = function(e) {
+  console.log('move event 처리');
+};
+var wheelHandler = function(e) {
+  console.log('wheel event 처리');
+};
+document.body.addEventListener('mousemove', debounce('move', moveHandler, 500));
+document.body.addEventListener(
+  'mousewheel',
+  debounce('wheel', wheelHandler, 700)
+);
+```
+> 클로저로 처리되는 변수 : eventName, func, wait, timeoutId
+>> 완벽하게 이해 못해서 다시 한번 더 봐야할듯 ㅠ
+
+- Symbol.for 메서드
+: 전역 식볼공간에 인자로 넘어온 문자열이 이미 있으면 해당 값을 참조하고, 선언돼 있지 않으면 새로 만드는 방식. 어디서든 접근가능하면서 유일무이한 상수를 만들고자 할 때 적합
+> _를 '비워놓음'으로 사용하기 위해 어쩔 수 없이 전역공간을 침범하는 경우를 방지.
+
 
 #### 4) 커링 함수
-- 커링 함수
+##### 커링 함수
 : 여러 개의 인자를 받는 함수를 하나의 인자만 받는 함수로 나눠서 순차적으로 호출될 수 있게 체인 형태로 구성한 것.\
 : 한 번에 하나의 인자만 전달하는 것을 원칙으로 함.\
 : 중간 과정상의 함수를 실행한 결과는 그 다음 인자를 받기 위해 대기만 할 뿐, 마지막 인자가 전달되기 전까지는 원본 함수가 실행되지 않음.
 > 부분 적용 함수 : 여러 개의 인자를 전달할 수 있고, 실행 결과를 재실행할 때 원본 함수가 무조건 실행된다.
+>> 기본적인 맥락은 일치하지만 다르다!
 
+```js
+var curry3 = function(func) {
+  return function(a) {
+    return function(b) {
+      return func(a, b);
+    };
+  };
+};
+
+var getMaxWith10 = curry3(Math.max)(10);
+console.log(getMaxWith10(8)); // 10
+console.log(getMaxWith10(25)); // 25
+
+var getMinWith10 = curry3(Math.min)(10);
+console.log(getMinWith10(8)); // 8
+console.log(getMinWith10(25)); // 10
+```
+> 필요한 상황에 직접 만들어 쓰기 용이
+>> but 인자가 많아지면 가독성이 떨어짐.
+
+- 이럴때는 화살표 함수를 사용하면 한 줄에 표기 가능
+
+```js
+var curry5 = func => a => b => c => d => e => func(a, b, c, d, e);
+```
+> 화살표 순서에 따라 함수에 차례로 값을 넘겨주면 마지막에 func가 호출된다.
+>> 각 단계에서 받은 인자들을 모두 마지막 단계에서 참조할 것이므로 GC되지 않고 메모리에 차곡차곡 쌓였다가, 마지막 호출로 실행 컨텍스트가 종료된 후에야 비로소 한꺼번에 GC의 수거 대상이 된다.
+
+##### 커링 함수가 유용한 경우
+- 지연실행(lazy execution)
+: 당장 필요한 정보만 받아서 전달하고 또 필요한 정보가 들어오면 전달하는 식으로 하면 결국 마지막 인자가 넘어갈 때까지 함수 실행을 미루는 것.
+
+ex) 서버에 정보를 요청할 필요가 있을 때마다 매번 baseUrl부터 전부 기입해주기보다는 공통적인 요소는 먼저 기억시켜두고 특정한 값(id)만으로 서버 요청을 수행하는 함수를 만드는게 좋은데, 이러한 이유로 커링을 상당히 광범위하게 사용하고 있음.
+> 예) Flux 아키텍처의 구현체 중 하나인 Redux의 미들웨어
