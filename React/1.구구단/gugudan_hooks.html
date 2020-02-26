@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>구구단</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src = "https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    const GuGuDan = () => {
+        const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+        const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+        const [value, setValue] = React.useState('');
+        const [result, setResult] = React.useState('');
+        // 초기값 넣어주기 (setState를 하나하나씩 분리해준다.)
+        // 구구단 컴포넌트안에 꼭 넣어줘야한다.
+        // 이게 바로 구조분해 문법(구조 분해 할당)이다..!
+        const inputRef = React.useRef();
+        // ref 사용하려면...!
+
+        const onSubmitForm = (e) => {
+            e.preventDefault();
+            if (parseInt(value) === first * second) {
+                setResult(`딩동댕!`);
+                // prevResult 사용하는 경우에는 함수형으로 바꿔줄 수 있음
+                /* setResult((PrevResult) => {
+                    return `딩동댕!`
+                }) 
+                counter 같은 거 할 때 비동기 문제 생기지 X*/
+                setFirst(Math.ceil(Math.random() * 9));
+                setSecond(Math.ceil(Math.random() * 9));
+                setValue(''); // 비동기인 이유 set할때마다 rendering 하는게 아니라 set을 다 모아서 한꺼번에 rendering 해주기 때문에.!
+                // 동기였으면 4번 일어나겠죠
+                inputRef.current.focus(); // document.querySelector(input).focus()랑 같은 역할.
+            }
+            else {
+                setResult(`땡!`);
+                setValue('');
+                inputRef.current.focus(); // DOM에 접근
+            }
+        }
+
+        const onChangeInput = (e) => {
+            setValue(e.target.value);
+        }
+        // value 값 변경하기
+        // gugudan_class.html 에서 onChange = (e) => {this.setState({ value: e.target.value });};와 같은 역할.
+        return (
+            <React.Fragment>
+                <div>{first} 곱하기 {second}는?</div>
+                <form onsubmit={onSubmitForm}>
+                    <input ref = {inputRef} onChange = {onChangeInput} value = {value} />
+                    <button>입력!</button>
+                </form>
+                <div id = "result">{result}</div>    
+            </React.Fragment>
+        )
+    }
+</script>
+<script type="text/babel">
+    ReactDOM.render(<GuGuDan />, document.querySelector('#root'));
+</script>    
+</body>
+</html>

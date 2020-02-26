@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>구구단</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src = "https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class GuGuDan extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = { 
+                    first: Math.ceil(Math.random() * 9),
+                    second: Math.ceil(Math.random() * 9),
+                    value: ' ', // input할 값
+                    result: ' ', // 결과
+                };
+            }
+            // constructor, super, this 다 생략가능합니다루. 
+
+            onSubmit = (e) => {
+                e.preventDefault(); // 노마드에서 사용한 바로 실행되는거 금하는거!
+                if (parseInt(this.state.value) === this.state.first * this.state.second) {
+                    this.setState((prevState) => {
+                        return {
+                            result: `${prevState.first}*${prevState.second} = ${prevState.first * prevState.second} 딩동댕!`,
+                            // 숙제 완료-!
+                            first: Math.ceil(Math.random() * 9),
+                            second: Math.ceil(Math.random() * 9),
+                            value: ' ', // input할 값
+                        }; // 함수를 리턴해주면 this.state.value 이런식으로 안넣고 prevState(예전상태값)로 표현이 가능하다!
+                        // 헷갈리는거 방지하기 위해서 하는 거랄까
+                    });
+                    this.input.focus(); // document.querySelector(input).focus()랑 같은 역할.
+                }
+                else {
+                    this.setState({
+                        result: `${this.state.first}*${this.state.second} = ${this.state.first * this.state.second} 땡!`,
+                        // 숙제 완료-!
+                        value: ' ',
+                    });
+                    this.input.focus();
+                }
+            };
+
+            onChange = (e) => {this.setState({ value: e.target.value });};
+            // 화살표 함수 쓰지않고 function 쓰면 this 값이 달라지기때문에 쓰지 말기
+            // corejs에서 엄청 깊게 공부했으니까 한번 더 보자구.
+
+            input;
+
+            render() {
+                return (
+                    <React.Fragment>
+                        <div>{this.state.first} 곱하기 {this.state.second} 는?</div>
+                        <form onSubmit={this.onSubmit}>
+                            <input ref = {(c)=>{ this.input = c; }}type = "number" value = {this.state.value} onChange = {this.onChange}/>
+                            <button>입력!</button>
+                        </form>
+                        <div>{this.state.result}</div>    
+                    </React.Fragment>
+                        );
+                        // {}안에는 자바스크립트 사용 가능.
+            }
+        }        
+    </script>
+    <script type="text/babel">
+        ReactDOM.render(<div><GuGuDan /><GuGuDan /><GuGuDan /></div>, document.querySelector('#root'));
+        // 컴포넌트마다 별개로 동작하기 때문에 여러개를 적어도 상태가 다르다!
+    </script>    
