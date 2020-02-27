@@ -23,7 +23,7 @@ React.createClass ~> Class ~> Hooks
 
 ## 3. HTML 속성과 상태(state)를 리액트에서 표현하기
 : 기본적으로 react는 컴포넌트들을 렌더링 할 root가 하나 필요하다.
-1. 속성\
+### 1) 속성
 : HTML 속성을 넣을 때는 객체 형식으로 표현.
 - js에서
 ``` js
@@ -36,17 +36,29 @@ render() {
 <button onclick="() => { console.log('clicked')}" type="submit">Like</button>
 ```
 
-2. 상태(state)\
+### 2) 상태(state)\
 : 바뀔 여지가 있는 부분
 > 좋아요 버튼을 누르면 좋아요를 눌렀음으로 바뀌면 좋아요 버튼이 상태인거쥬!
 >> 웹 사이트 들어가서 상태 찾는 연습하는 것도 좋다!
-- 상태를 바꾸고 싶으면?\
-: setState 사용, 먼저 기본 값 주기!\
 ``` js
 this.state = {
     liked = false,
 };
 ```
+- __상태를 바꾸고 싶으면?__\
+: setState 사용, 먼저 기본 값 주기!\
+: 직접 변경해줘야 할 것만 넣어야 한다. (수동으로)\
+: input 같은 경우에는 이렇게 컨트롤하지 않으면 값 입력이 보이질 않음.
+``` js
+onChange = {(e) => this.setState({ value: e.target.value })
+// ↓ 원래는 이렇게 사용했었음.
+input.onchange = (e) => {console.log(e.target.value)}
+// render 안에는 태그들만 남겨두고
+// JS 로직들은 class의 method들로 들어가게 해주기 위해 빼둔 친구
+```
+> onclick, onchange, onsubmit, onload, oninput, onfocus, onblur 등 상황에 따라 골라서 사용하기
+>> js에서 사용하려면 onClick 이렇게 바꿔줘야한다.
+
 - 상태가 바뀌면?\
 : 화면이 저절로 바뀐다!
 > 원래라면 ex) `$('button').text('Liked');` 라고 바꿔줘야하는데.. 이걸 안해도된다! 와우!
@@ -91,5 +103,82 @@ return <button type="submit" onClick = {() => { this.setState({ liked: true}) } 
 ```
 
 ## 꿀팁
+1. html 태그와 리액트 컴포넌트 구별법
 ```<button>``` 소문자로 시작하면 html태그\
 ```<LikedButton />``` 대문자로 시작하면 리액트 컴포넌트
+
+2. JSX와 JS 섞어 쓰지 말기 __(클래스 사용 시)__
+: render 안에는 태그들만 남겨두고 JS 로직들은 class의 method들로 들어가게 해주기 !
+
+3. 컴포넌트를 여러개 rendering하면
+: 같은 컴포넌트지만 다른 state를 가진다.
+``` js
+<LikeButton />
+<LikeButton />
+```
+
+4. __<> 빈태그__
+: render 안에 ```<div>```로 감싸주지 않으면 에러가 났았다.
+> 제일 상단에 root를 하나 둔 것 처럼 컴포넌트도 항상 ```<div>```로 감싸줬어야 했다.
+>> CSS 적용시나 굉장히 거슬리는 친구였는데 개선이 되었다!
+
+: 빈태그를 이용해서 한번 감싸주면 된다구!
+``` <> </> ```
+> 에러가 날때는 ```<React.Fragment></React.Fragment>``` 사용
+
+# Class 사용하기
+## JS 로직에서 this.setState를 사용할 때 함수를 return 
+: 새로운 객체로 받지말고 함수를 return 해주면 예전 상태값(prevState)를 this.state.value 뭐 이런식으로 안받아도 된다.
+1. 별로 안헷갈린다.
+2. 연속으로 사용했을 때 비동기 때문에 발생하는 문제점 해결 가능.
+``` js
+this.setState({
+    value: this.state.value + 1,
+});
+this.setState({
+    value: this.state.value + 1,
+});
+this.setState({
+    value: this.state.value + 1,
+}); // 새로운 value가 value+3 이 아니라 value+1일 수 있다.
+```
+> 비동기때문에 문제가 발생함.
+``` js
+this.setState((prevState) => {
+    return{
+        value: prevState.value + 1
+    };
+});
+```
+## 상태 변화 후에도 계속 포커스를 주고 싶다!
+: __ref__ 사용하기
+1. class 안에 input 선언
+2. render안에 적어준다.
+``` js
+render(){
+<input ref = {(c)=>{ this.input = c; }}>
+}
+```
+3. class 안 JS 로직 안에
+: ```this.input.focus();``` 선언
+> ```document.querySelector(input).focus()```랑 같은 역할.
+
+-> 넣어 준 dom이 선택 된다.
+> 꼭 input, c 일 필요없음 본인이 원하는 대로.
+>> 그냥 외우세요.
+
+## 꿀팁2
+1. JS 로직에서 화살표 함수 안쓰면
+: this 값 달라지니까 그냥 function 사용 금지.
+2. {}안에는 자바스크립트 사용 가능.
+3. 최소 script 2개 필요.
+    - 안에 내용 넣을 스크립트 (이러이러한 내용을 만들겠다.)
+    - div안에 넣어 줄 스크립트 (내용을 보여주겠다.)
+        - ```<div id="root"></div>``` 여기안에 앞의 스크립트 내용을 넣겠다 이런 느낌이랄까.
+4. 상태가 변할 때 마다 render 함수가 다시 실행.
+: (this.)setState 할 때 render 함수가 다시 실행된다.\
+: 그래서 함수 같은거 따로 밖에 빼는 이유다!\
+> render를 많이 하면 느려진다.
+>> 성능 최적화할 때 중요하기 때문에 알아두기.
+
+# Hooks 사용하기
