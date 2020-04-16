@@ -1,0 +1,58 @@
+.top-nav{
+    border:2px solid blue;
+    display: flex;
+    justify-content: space-between; 
+}
+
+.top-nav div{
+    width: 100px;
+    border:1px solid skyblue;
+}
+
+.profile-box{
+    border:2px solid red;
+    position: relative; /* 기준을 잡아준다. 어디로부터~ 라고 할 때 어디로부터!*/
+}
+
+.ac-info{
+    border:2px solid purple;
+    position: absolute; /* 절대적으로 어느 위치에 있게 하고 싶다는 것을 선언해주기*/
+    right: 20px;
+    top: 5px;
+}
+
+
+.edit-btn{
+    border:2px solid orange;
+}
+
+.pr-info{
+    border:2px solid green;
+}
+
+.icon{
+    width: 20px;
+    font-size: 16px;
+    display: inline-block;
+    border:2px solid gray;
+}
+
+.icon-box{
+    display: flex;
+}
+
+.pr-img{
+    box-sizing: border-box; /* 컨텐츠 부분을 갉아먹으면서 padding을 준다! 사이즈 바뀌지 않음! */
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border:2px solid black;
+    border-radius: 50%; /* 동그랗게 만들어주기 */
+    margin-left: 10px; /* 바깥부분 */
+    float: left; /* 이 태그를 위로 둥둥 띄우겠다! 다른 태그들이 올라가지면서 겹쳐져보임 */
+}
+
+.ac-info{
+    width: 50%;
+    margin-left: 50%;
+}

@@ -19,6 +19,8 @@
 : .gitignore을 만들고 안에 무시할 폴더나 파일을 적어주면 끝!
 2. add 후 무시하는 방법\
 : ```git rm -- cached 무시할것 -r```해서 지워주고 위와 똑같이 해주기!
+3. ```touch test.html```
+: 뒤에 있는 파일을 만들어달라!
 
 ## GIT VS GIT HUB
 ### GIT
