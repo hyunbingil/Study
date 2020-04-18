@@ -1,0 +1,212 @@
+.insta-container{
+    border: 2px solid black;
+    width: 500px;
+    height: 760px;
+    /* 1. display block*/
+    margin: 0 auto;
+    /* 상하 : 0, 좌우 : auto */
+    /* 가운데 정렬 */ 
+    position: relative;
+    background-color: #121212;
+    color: white;
+}
+
+.top-nav{
+    /* border: 1px solid black; */
+    padding: 10px;
+}
+
+.nick, .menu{
+    display: inline-block;
+    /* border: 1px solid red; */
+    font-size: 15px ;
+    font-weight: bold;
+}
+
+.menu{
+    float: right;
+    width: 20px;
+    height: 20px;
+}
+
+.ham-btn{
+    width: 100%;
+    height: 100%;
+}
+
+.ac-info{
+    /* border: 2px solid blue; */
+}
+.pr-img{
+    display: inline-block;
+    border: 2px solid #ccc;
+    width: 100px;
+    height: 100px;
+
+    float: left;
+
+    border-radius: 50%;
+
+    margin-left: 20px;
+    margin-top: 10px;
+
+    position: relative;
+}
+
+.flame{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.add-icon{
+    background-color: #00a8ff;
+    color: snow;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-weight: bold;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+}
+
+.info-box{
+    /* border: 2px solid red; */
+
+    display: inline-flex;
+    height: 60px;
+    width: 300px;
+    margin-left: 30px;
+    margin-top: 27px;
+}
+
+.info-item{
+    /* border: 1px solid black; */
+    flex: 1;
+    text-align: center;
+
+    display: inline-flex;
+    /* 가로 가운데정렬 */
+    justify-content: center;
+    /* 세로 가운데정렬 */
+    align-items: center;
+}
+
+.myname{
+    /* border: 3px solid pink; */
+    margin-top: 30px;
+    padding-left: 10px;
+}
+
+.pr-edit{
+    border: 2px solid #777;
+    width: 90%;
+
+    margin: 10px auto;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 5px;
+}
+
+.circle-box{
+    /* border: 1px solid red; */
+}
+
+.circle-item{
+    /* border: 2px solid green; */
+    display: inline-block;
+    width: 17%;
+    height: 100px;
+    margin: 0 3px;
+}
+
+.dong{
+    border: 1px solid #dff9fb;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.dong-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.dong-info{
+    /* border: 2px solid orange; */
+    text-align: center;
+    font-size: 12px;
+}
+
+.feed-container{
+    /* border: 2px solid red; */
+}
+
+.feed-nav{
+    /* border: 1px solid green; */
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.feed-nav-item{
+    border-top: 1px solid #ccc;
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.feed-nav-item-img{
+    width: 30px;
+}
+
+#feed{
+    border-bottom: 1px solid #ccc;
+}
+.photo-box{
+    padding-left: 30px;
+}
+.photo-item{
+    /* border: 2px solid orange; */
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+}
+
+.photo-item-img{
+    width: 100%;
+    height: 100%;
+}
+
+.bottom-nav{
+    /* border: 2px solid black; */
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+}
+
+.bottom-nav-item{
+    /* border: 1px solid #ccc; */
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+    padding: 4px 0;
+}
+/*
+padding 사용하지 않을 경우?
+display: inline-flex;
+justify-content: center;
+align-items: center;
+사용하기 */
+
+.bottom-nav-item-img{
+    width: 30px;
+}
