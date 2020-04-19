@@ -1,16 +1,17 @@
-body {
-    background-color: skyblue;
+#main {
+	width: 200px;
 }
-
-.inner {
-    background-color: pink;
-    width: 200px;
-    height: 100px;
+.box {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	padding: 20px;
 }
-
-#target {
-	border-style: dotted;
-	border-color: black red yellow blue;
-    border-width: 8px 4px 16px 24px;
-    border-bottom: red solid 1px;
+#up {
+	background: pink;
+	box-sizing: content-box;
+}
+#down {
+	background: lemonchiffon;
+	box-sizing: border-box;
 }

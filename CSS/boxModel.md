@@ -109,3 +109,88 @@ border-radius: 가로 반지름 / 세로 반지름;
 ```
 <img src="./img/border_radius2.png">
 
+## 패딩(Padding)
+: border를 기준으로 경계선 내부 여백
+``` css
+margin: 12px 24px 32px 63px;
+/* 상 우 하 좌 */
+```
+## 마진(Margin)
+: border를 기준으로 경계선 외부 여백
+``` css
+padding: 12px 24px 32px 63px;
+/* 상 우 하 좌 */
+```
+
+### 패딩과 마진 실습
+``` html
+<div class="box">
+	<div class="inner">
+		content
+	</div>
+</div>
+```
+``` css
+body { background: skyblue;}
+.inner {
+	background: lemonchiffon;
+	width: 100%;
+	height: 100%;
+}
+.box {
+	display: inline-block;
+	background: pink;
+	width: 100px;
+	height: 100px;
+	border: 8px solid red;
+	margin: 20px;
+	padding: 20px;
+}
+```
+<img src="./img/margin.padding.PNG">
+
+### 마진 상쇄
+: 위아래로 맞닿은 두 요소 사이 마진은 더 큰 쪽으로 기준으로 결정된다.
+> 두 요소에 각각 마진을 적용하더라도 서로 맞닿아 있다면 마진이 따로 존재하지 않는다는 말과 동일
+<img src="./img/margin.PNG">
+
+> 중간에 화살표가 20px+20px이 아니라 20px만 적용되어있다.
+``` css
+body { background: skyblue;}
+.box {
+	display: inline-box;
+	width: 100px;
+	height: 100px;
+}
+#top{
+	background: pink;
+	margin-bottom: 20px;
+}
+#bottom {
+	background: lemonchiffon;
+	margin-top: 40px;
+}
+```
+: 내가 생각한대로 여백이 생기지 않으면, 마진 상쇄 문제가 아닌지 고민해보기!
+
+## box-sizing
+: 일반적으로 요소에 width나 height를 적용하면, 항상 content의 크기가 조정된다. 때문에 다른 요소들과 배치할 때 종종 크기 값을 어떻게 줘야 할지 고민할 때가 많다.
+> 예시로, 두개의 box가 서로 붙어있을 때, 한 박스를 padding과 border로 꾸미려고 코드를 수정하면, 예상한 것과 달리 두개가 분리되어 버린다.
+
+: 이러한 고민들을 위해 box-sizing 프로퍼티를 이용하자!
+``` css
+box-sizing: content-box;
+/* content-box를 기준으로 크기를 정한다. */
+/* width(height) = content size */
+box-sizing: border-box;
+/* border 바로 전 padding까지의 기준으로 크기를 정한다. */
+/* width(height) = content size + padding + border size */
+```
+
+👩‍🏫 정리하면, 기본 값은 content-box의 width 값은 컨텐츠만의 사이즈이고, border-box는 컨텐츠의 크기와 패딩까지 합한 값이라는 것!
+
+- content-box\
+: padding 값을 줄 경우 배경이 넓어진 것처럼, 내부 여백이지만 밖으로 펼쳐 나가는 모습을 보인다.
+- border-box\
+: width가 padding을 포함하기 때문에 자동으로 컨텐츠의 크기가 줄어든다. 내부 여백인 패딩에 값을 주면 컨텐츠가 줄어 안으로 여백이 확장되는 것처럼 보인다.
+<img src="./img/box-sizing.PNG">
