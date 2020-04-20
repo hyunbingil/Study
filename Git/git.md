@@ -21,6 +21,9 @@
 : ```git rm -- cached 무시할것 -r```해서 지워주고 위와 똑같이 해주기!
 3. ```touch test.html```
 : 뒤에 있는 파일을 만들어달라!
+4. README.md 파일 만들고 push 안되는 경우 pull을 써도 안되는 경우\
+=> ```git pull origin 브런치명 --allow-unrelated-histories``` 쓰면 된다. 크!
+
 
 ## GIT VS GIT HUB
 ### GIT

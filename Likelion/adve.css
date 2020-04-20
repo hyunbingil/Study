@@ -1,0 +1,54 @@
+/* body{
+    background-color: #1B9CFC;
+}
+
+h1{
+    color: white;
+}
+
+@media(max-width: 768px) {
+    body{
+        background-color: #D6A2E8;
+    }
+    
+    h1{
+        color: #F8EFBA;
+    }
+
+}
+
+@media(max-width: 450px) {
+    body{
+        background-color: #fab1a0;
+    }
+    
+    h1{
+        color: #dfe6e9;
+    }
+
+} */
+
+div {
+    background-color: #fd79a8;
+    width: 100px;
+    height: 100px;
+    transition: all 1s ease-out; 
+}
+
+/* div:hover {
+    background-color: #00b894;
+} */
+/* div위에 마우스를 올리면 실행되는 것 */
+
+div:active {
+    background-color: #e17055;
+    margin-left: 100px;
+    transition: all 1s ease-out; 
+    /* 시간 설정해줘서 실행되는 것*/
+}
+/* 클릭하면 실행되는 것 */
+
+.bin-btn {
+    background-color: #fd79a8;
+    color: snow;
+}
