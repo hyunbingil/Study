@@ -86,3 +86,35 @@ function App() {
 <Hello //열리는 태그 내부에서
 />
 ```
+
+## 05. props를 통해 컴포넌트에게 값 전달하기
+### Props란?
+: properties의 줄임말로, 우리가 어떠한 값을 컴포넌트에게 전달해주어야 할 때, props를 사용한다.
+### Props의 기본 사용법
+: App 컴포넌트에서 Hello 컴포넌트를 사용할 때 name이라는 값을 전달해주고 싶다면?
+- App.js
+``` js
+import React from 'react';
+import Hello from './Hello';
+
+function App() {
+  return (
+    <Hello name="react" />
+  );
+}
+
+export default App;
+```
+- Hello.js
+``` js
+import React from 'react';
+
+function Hello(props) {
+  return <div>안녕하세요 {props.name}</div>
+}
+
+export default Hello;
+```
+> 컴포넌트에게 전달되는 props 는 파라미터를 통하여 조회 할 수 있다
+
+__props 는 객체 형태로 전달되며, 만약 name 값을 조회하고 싶다면 props.name 을 조회하면 된다.__
