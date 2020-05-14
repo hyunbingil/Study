@@ -118,3 +118,97 @@ export default Hello;
 > 컴포넌트에게 전달되는 props 는 파라미터를 통하여 조회 할 수 있다
 
 __props 는 객체 형태로 전달되며, 만약 name 값을 조회하고 싶다면 props.name 을 조회하면 된다.__
+
+### 여러개의 props, 비구조화 할당
+``` js
+import React from 'react';
+
+function Hello(props) {
+  return <div style={{ color: props.color }}>안녕하세요 {props.name}</div>
+}
+
+export default Hello;
+```
+#### 비구조화 할당
+: props 내부의 값을 조회 할 때마다 ```props.```를 입력하고 있는데, 함수의 파라미터에서 비구조화 할당(구조 분해)을 사용하면 간결하게 작성이 가능.
+``` js
+import React from 'react';
+
+function Hello({ color, name }) {
+  return <div style={{ color }}>안녕하세요 {name}</div>
+}
+
+export default Hello;
+```
+
+### defaultProps로 기본값 설정
+: 컴포넌트에 props를 지정하지 않았을 때 기본적으로 사용할 값으 설정하고 싶으면 ```defaultProps```라는 값을 설정하면 된다.
+- Hello.js
+``` js
+import React from 'react';
+
+function Hello({ color, name }) {
+  return <div style={{ color }}>안녕하세요 {name}</div>
+}
+
+Hello.defaultProps = {
+  name: '이름없음'
+}
+
+export default Hello;
+```
+- App.js
+``` js
+import React from 'react';
+import Hello from './Hello';
+
+function App() {
+  return (
+    <>
+      <Hello name="react" color="red"/>
+      <Hello color="pink"/>
+    </>
+  );
+}
+
+export default App;
+```
+
+### Props.children
+: 컴포넌트 태그 사이에 넣은 값을 조회할 때 사용.
+- wrapper.js
+``` js
+import React from 'react';
+
+// props.children 렌더링해주어야 실행했을 때 Hello가 보인다.
+function Wrapper({ children }) {
+  const style = {
+    border: '2px solid black',
+    padding: '16px',
+  };
+  return (
+    <div style={style}>
+      {children}
+    </div>
+  )
+}
+
+export default Wrapper;
+```
+- App.js
+``` js
+import React from 'react';
+import Hello from './Hello';
+import Wrapper from './Wrapper';
+
+function App() {
+  return (
+    <Wrapper>
+      <Hello name="react" color="red"/>
+      <Hello color="pink"/>
+    </Wrapper>
+  );
+}
+
+export default App;
+```
