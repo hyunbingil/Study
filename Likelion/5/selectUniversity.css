@@ -1,0 +1,135 @@
+.title {
+    /* border: 1px solid black; */
+    margin-left: 550px;
+    margin-top: 100px;
+    display: inline-block;
+}
+
+.title_img{
+    /* border: 1px solid red; */
+    width: 350px;
+}
+
+.near{
+    /* border: 1px solid blue; */
+    text-align: center;
+}
+
+.check{
+    /* border: 1px solid purple; */
+    text-align: center;
+}
+
+/* .search {
+    border: 2px solid pink;
+    display: inline-block;
+    margin-left: 420px;
+    margin-top: 70px;
+    border-radius: 10px;
+    padding: 5px;
+}
+.search_input{
+    border: 0px;
+    border-radius: 10px;
+    font-size: 30px;
+    width: 600px
+}
+
+.search_btn{
+    border: 0px;
+    border-radius: 10px;
+    background-color: white;
+    padding-top: 3px;
+}
+
+.search_btn_img{
+    width: 30px;
+} */
+
+.select{
+    /* border: 2px solid pink; */
+    width: 400px;
+    padding: 10px;
+    padding-left: 12px;
+    margin-left: 550px;
+    margin-top: 30px;
+}
+.current_location{
+    display: inline-block;
+    margin-top: 50px;
+    margin-left: 630px;
+}
+
+.current_location_btn{
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    background-color: pink;
+    font-size: 18px;
+    /* margin: 0px auto; */
+}
+
+.current_location_btn:hover{
+    background-color: #ccc;
+    
+}
+
+.bottom{
+    /* border: 1px solid pink; */
+    width: 160px;
+    margin-top: 50px;
+    margin-left: 650px;
+    display: inline-block;
+}
+
+.login{
+    /* border: 1px solid orange; */
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+    /* margin: 0px auto; */
+    text-align: center;
+    cursor: pointer;
+}
+.sign_up{
+    /* border: 1px solid purple; */
+    display: inline-block;
+    width: 80px;
+    height: 20px;
+    cursor: pointer;
+    /* margin: 0px auto; */
+}
+
+.ver2{
+    background-color: white;
+    border: 0px;
+    color: pink;
+    margin-left: 50px;
+}
+
+.ver2:hover {
+    color: #ccc;
+}
+
+.pukyong{
+    background-color: #ffcccc;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.pusan{
+    background-color: #ffcccc;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.pukyong:hover, .pusan:hover {
+    background-color: #ccc;
+    color: white;
+} 

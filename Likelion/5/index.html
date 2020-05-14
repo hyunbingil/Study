@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC방 좌석 알리미</title>
+    <link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+<body>
+    <div class="title">
+        <div>
+        <img class="title_img" src="./img/title.png" alt="PC방 좌석 알리미">
+        </div>
+        <div class="near">주변 PC방의 남은 좌석을 확인해보세요!</div>
+        <div class="check">확인 후 예약 서비스까지 사용해보세요!</div>    
+    </div>
+
+    <div class="search">
+        <input type="text" class="search_input" placeholder="목적지를 검색하세요.">
+        <button class="search_btn">
+            <img class="search_btn_img"src="data:image/png;base64,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">
+        </button>
+    </div>
+
+    <div class="current_location">
+        <button class="current_location_btn" onclick="location.href='./map.html'">현재 위치로 확인하기</button>
+    </div>
+
+    <div class="bottom">
+        <button class="login">
+            로그인 
+        </button>
+        /
+        <button class="sign_up">
+            회원가입
+        </button>
+        <button class="ver2" onclick="location.href='./selectUniversity.html'" style="cursor: pointer;">ver.2</button>
+    </div>
+
+</body>
+</html>

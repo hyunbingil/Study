@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC방 좌석 알리미ver.2</title>
+    <link rel="stylesheet" type="text/css" href="./selectUniversity.css">
+</head>
+<body>
+    <div class="title">
+        <div>
+        <img class="title_img" src="./img/title.png" alt="PC방 좌석 알리미">
+        </div>
+        <div class="near">주변 PC방의 남은 좌석을 확인해보세요!</div>
+        <div class="check">확인 후 예약 서비스까지 사용해보세요!</div>    
+    </div>
+
+    <div class="select">
+        <button class="pukyong" onclick="location.href='https://map.kakao.com/?eX=978724&eY=461110&eName=%EB%B6%80%EA%B2%BD%EB%8C%80%ED%95%99%EA%B5%90'">경성대/부경대 주변</button>
+        <button class="pusan"onclick="location.href='https://map.kakao.com/?eX=974770&eY=486839&eName=%EB%B6%80%EC%82%B0%EB%8C%80%ED%95%99%EA%B5%90'">부산대 주변</button>
+    </div>
+
+    <div class="current_location">
+        <button class="current_location_btn" onclick="location.href='./map.html'">현재 위치로 확인하기</button>
+    </div>
+
+    <div class="bottom">
+        <button class="login">
+            로그인 
+        </button>
+        /
+        <button class="sign_up">
+            회원가입
+        </button>
+        <button class="ver2" onclick="location.href='./'" style="cursor: pointer;">ver.1</button>
+    </div>
+
+</body>
+</html>
