@@ -19,7 +19,7 @@
 - Template\
 : 사용자에게 보여지는 화면\
 : html, css 등
-<img src="/img/mvt.PNG">
+<img src="/Likelion/img/mvt.PNG">
 
 ### 기본 환경 구성
 1. 가상 환경 만들기\
