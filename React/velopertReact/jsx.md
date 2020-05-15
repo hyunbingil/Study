@@ -212,3 +212,64 @@ function App() {
 
 export default App;
 ```
+
+## 06. 조건부 렌더링
+: 특정 조건에 따라 다른 결과물을 렌더링하는 것.
+#### App 컴포넌트
+: App컴포넌트에서 Hello컴포넌트를 사용할 때, isSpecial이라는 props 설정해보자.
+``` js
+import React from 'react';
+import Hello from './Hello';
+import Wrapper from './Wrapper';
+
+
+function App() {
+  return (
+    <Wrapper>
+      <Hello name="react" color="red" isSpecial={true}/>
+      <Hello color="pink" />
+    </Wrapper>
+  )
+}
+
+export default App;
+```
+: isSpecial이 true이냐 false이냐에 따라서 컴포넌트의 좌측에 *표시를 보여줄것이다.
+#### Hello 컴포넌트
+``` jsx
+import React from 'react';
+
+function Hello({ color, name, isSpecial }) {
+  return (
+    <div style={{ color }}>
+      { isSpecial ? <b>*</b> : null }
+      안녕하세요 {name}
+    </div>
+  ); // {isSpecial && <b>*</b>} 과 같다.
+}
+
+Hello.defaultProps = {
+  name: '이름없음'
+}
+
+export default Hello;
+```
+#### props 값 설정을 생략하면?
+: true로 설정한 것으로 간주한다.
+> isSpecial = {true}와 같다.
+``` js
+import React from 'react';
+import Hello from './Hello';
+import Wrapper from './Wrapper';
+
+function App() {
+  return (
+    <Wrapper>
+      <Hello name="react" color="red" isSpecial />
+      <Hello color="pink"/>
+    </Wrapper>
+  );
+}
+
+export default App;
+```
