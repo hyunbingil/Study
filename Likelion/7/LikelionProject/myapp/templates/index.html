@@ -13,6 +13,14 @@
         <textarea cols="30" rows="20" name="target"></textarea>
         <input type="submit" value="글자수 계산?">
     </form>
+
+    <h1>template에 전달한 model의 data</h1>
+    {% for i in take_all_post %}
+        {{i.title}}<br>
+        {{i.body}}<br>
+        <hr><hr>
+    {% endfor &}    
+    <!-- for문 돌리기 -->
 </body>
 </html>
     

@@ -27,6 +27,7 @@ class Test(models.Model):
 : data 저장이 가능한 model을 작성했으니 알려주자!
 - makemigrations
 : 우리가만든 모델의 구조를 어느시점에 어떻게 변했는지 기록하는 과정.
+> 번역 파일이 만들어진다!
 ```
 python manage.py makemigrations
 ```
@@ -35,3 +36,41 @@ python manage.py makemigrations
 ```
 python manage.py migrate
 ```
+### 💌 model 관리를 해보자.
+- admin.py
+``` py
+from django.contrib import admin
+from .models import Test #가져와서 사용해주기 위해 추가
+
+# Register your models here.
+admin.site.register(Test)
+# Test라는 model을 admin site에 register해서 내가 관리하겠다라는 의미 정도..
+```
+
+### 💌 관리자 계정을 만들어보자.
+```
+python manage.py createsuperuser
+```
+### 💌 admin page로 접속해보자.
+: 로그인 후 admin 사이트에 있는 post를 누르고\
+=> add post를 눌러 글을 여러개 추가해보자.
+__model 준비 끝!!__
+
+### 💌 view로 가서 model을 control 해보자.
+``` py
+from django.shortcuts import render
+from .models import Test
+
+# Create your views here.
+def index(request):
+    all_post = Test.objects.all()
+    # objects라는 것은 글 하나하나를 말하는데,
+    # .all()이라는 친구로 전체 글을 불러와 all_post에 저장.
+
+    context = {'take_all_post': all_post}
+    # context : page에 전달해주는 정보(data)
+    # take_all_post는 우리가 넘겨주는 context라는 꾸리미안에서
+    # all_post라는 내용을 찾기위한 라벨, 태그, 이름 정도로 생각
+    return render(request, 'index.html', context)    
+    # context로 포장한 내용을 render의 세번째 인자로 index.html에 넘겨준다.
+```    
