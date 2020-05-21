@@ -74,3 +74,14 @@ def index(request):
     return render(request, 'index.html', context)    
     # context로 포장한 내용을 render의 세번째 인자로 index.html에 넘겨준다.
 ```    
+
+### 💌 template에 전달한 model의 data를 보여주자.
+``` html
+<h1>template에 전달한 model의 data</h1>
+    {% for i in take_all_post %}
+        {{i.title}}<br>
+        {{i.body}}<br>
+        <hr><hr>
+    {% endfor &}    
+    <!-- for문 돌리기 -->
+```    
