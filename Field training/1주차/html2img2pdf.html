@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>HTML2PDF</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+  </head>
+
+  <body>
+    <h1>HTML2PDF</h1>
+    <p>Save this HTML to PDF</p>
+    <button onclick="fnSaveAsPdf();">Save PDF</button>
+
+    <script>
+      function fnSaveAsPdf() {
+        html2canvas(document.body).then(function(canvas) {
+          var imgData = canvas.toDataURL('image/png'); // 캔버스를 이미지로 변환
+          var imgWidth = 210; // 이미지 가로 길이(mm) A4 기준
+          var pageHeight = imgWidth * 1.414; // 출력 페이지 세로 길이 계산 A4 기준
+          var imgHeight = canvas.height * imgWidth / canvas.width;
+
+          var doc = new jsPDF({
+            'orientation': 'p',
+            'unit': 'mm',
+            'format': 'a4'
+          });
+
+          doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+          doc.save('sample_A4.pdf');
+          console.log('Reached here?');
+        });
+      }
+
+    </script>
+  </body>
+
+</html>
