@@ -20,3 +20,34 @@ function shouldWrapAPIs()
     return true;
   }
 ```
+``` js
+  if (shouldWrapAPIs())
+  {
+    // Unlike Firefox, Chrome doesn't have a "browser" object, but provides
+    // the extension API through the "chrome" namespace (non-standard).
+    if (typeof browser == "undefined")
+      self.browser = chrome;
+
+    for (let [api, ...testArgs] of maybeAsyncAPIs)
+    {
+      let wrappables = getAPIWrappables(api);
+
+      if (!wrappables)
+        continue;
+
+      let {func} = wrappables;
+
+      (acceptsCallback(func, testArgs) ? asyncAPIs : syncAPIs).push(api);
+    }
+
+    for (let api of asyncAPIs)
+      wrapAsyncAPI(api);
+
+    for (let api of syncAPIs)
+      wrapSyncAPI(api);
+
+    wrapRuntimeOnMessage();
+  }
+}
+```
+> 이게 뭔데 10덕아 . . .. ...   . 오늘 하루종일 이거 해야겠누
