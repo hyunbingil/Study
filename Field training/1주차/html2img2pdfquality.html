@@ -1,0 +1,56 @@
+<html>
+
+  <head>
+    <title>HTML2PDF</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+  </head>
+
+  <body>
+    <div id="total">
+    <h1>HTML2PDF</h1>
+    <p>Save this HTML to PDF</p>
+    <img src="핑구.jpg" id="carousel-example-generic">
+    <img src="안녕.png" id="carousel-example-generic2">
+    <button onclick="fnSaveAsPdf();">Save PDF</button>
+    </div>  
+    <script>
+
+      function fnSaveAsPdf() {
+        var w = 1000;
+        var h = 1000;
+        var capture = document.querySelector('#total'); 
+        var canvas = document.createElement('canvas');
+        canvas.width = w*2;
+        canvas.height = h*2;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        var context = canvas.getContext('2d');
+        context.scale(2,2);
+
+        //특정부분 스크린샷
+        html2canvas(capture, {canvas: canvas})
+        //id carousel-example-generic 부분만 스크린샷
+        .then(function (canvas) {
+            var imgData = canvas.toDataURL('image/png', 1); // 캔버스를 이미지로 변환
+            var imgWidth = 210; // 이미지 가로 길이(mm) A4 기준
+            var pageHeight = imgWidth * 1.414; // 출력 페이지 세로 길이 계산 A4 기준
+            var imgHeight = canvas.height * imgWidth / canvas.width;
+
+  
+            var doc = new jsPDF({
+              'orientation': 'p',
+              'unit': 'mm',
+              'format': 'a4'
+            });
+            
+            doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight); // 이미지넣기
+            doc.save('sample_A3.pdf'); // pdf로 이미지 저장하기
+            console.log('Reached here?');
+        });
+        }
+
+    </script>
+  </body>
+
+</html>
