@@ -1,13 +1,14 @@
 ### 1. 삼항 연산자
-
-    조건 ? true이면 : false이면
-
+``` js
+조건 ? true이면 : false이면
+```
 ### 2. Truthy and Falsy
 : 파라미터가 null이거나 undefined 등 Falsy인 상황을 대비할 때 사용 (0," ", Not A Number)
-
-    person === undefined || person === null
-    =
-    !person
+``` js
+person === undefined || person === null
+=
+!person
+```    
  > null과 undefined는 Falsy한 값이기 때문에 !붙여서 Truthy 한 값으로 바꿔주면 조건문이 돌아간다.
 
 ### 3. 단축 평가(Short-Circuit-Evaluation) 논리 계산법
