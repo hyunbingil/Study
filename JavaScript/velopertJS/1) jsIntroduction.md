@@ -44,7 +44,7 @@ let criminal;
 > 연산 순서도 이 순서대로!
 
 ### 비교 연산자
-: 두 값으 비교할 때 사용할 수 있음.
+: 두 값을 비교할 때 사용할 수 있음.
 #### 1) 두 값이 일치하는지 확인
 - ===
 > ==은 타입 검사까지는 하지 않는다. (자료형 검사X)
@@ -123,6 +123,7 @@ const add = (a,b) => {
 console.log(add(1,2));
 ```
 > 화살표 함수와 일반 function 으로 만든 함수와의 주요 차이점은 화살표 함수에서 가르키는 this 와 function 에서 가르키는 this 가 서로 다르다!
+>> 화살표 함수에는 this가 없음. 외부에 있는 것을 가리킴.
 
 ## 5. 객체
 : 우리가 변수 혹은 상수를 사용하게 될 때 하나의 이름에 여러 종류의 값을 넣을 수 있게 해준다.
@@ -139,7 +140,8 @@ console.log(dog.age);
  > 파라미터로 string 사용하라고 하네 ``이거에 ${}이거 쓰는거 ㅎㅎ
 
  ### 객체 비구조화 할당
- : 객체 구조 분해
+ : 객체 구조 분해라고도 한다.
+ > ironMan.name 이런식으로 다 해주어야하는데 이거 사용하면 안해도 된당.
 ``` js
 const ironMan = {
     name: '토니 스타크',
@@ -279,6 +281,17 @@ for (let i = 0; i < names.length; i++){
 }
 ```
 #### 2) 객체를 위한 반복문 for...in
+``` js
+const doggy = {
+  name: '멍멍이',
+  sound: '멍멍',
+  age: 2
+};
+
+console.log(Object.entries(doggy)); // [Array[2], Array[2], Array[2]]
+console.log(Object.keys(doggy)); // ["name", "sound", "age"]
+console.log(Object.values(doggy)); // ["멍멍이", "멍멍", "2"]
+```
 - Object.entries\
 : [[키, 값], [키, 값]] 형태의 배열로 변환
 - Object.keys\
@@ -306,6 +319,14 @@ while (i<10){
 ## 8. 배열 내장함수
 ### forEach
 : for문 대체
+> 함수형태의 파라미터를 전달하는 것을 콜백함수라 부름.
+``` js
+const superheroes = ['아이언맨', '캡틴 아메리카', '토르', '닥터 스트레인지'];
+
+for (let i = 0; i < superheroes.length; i++) {
+  console.log(superheroes[i]);
+}
+```
 ``` js
 const superheroes = ['아이언맨', '캡틴 아메리카', '토르', '닥터 스트레인지'];
 
@@ -313,7 +334,7 @@ superheroes.forEach(hero => {
     console.log(hero);    
 });
 ```
-> forEach 함수의 파라미터 hero는 각 원소를 가르키게 된다.
+> forEach 함수의 파라미터 hero는 각 원소를 가리키게 된다.
 
 ### map(변화함수)
 : 배열 안의 각 원소를 변환 할 때 사용\
@@ -337,10 +358,32 @@ console.log(index);
 ### findIndex
 : 배열 안에 있는 값이 객체거나 배열이면 indexOf로 찾을 수 X
 ``` js
+const todos = [
+  {
+    id: 1,
+    text: '자바스크립트 입문',
+    done: true
+  },
+  {
+    id: 2,
+    text: '함수 배우기',
+    done: true
+  },
+  {
+    id: 3,
+    text: '객체와 배열 배우기',
+    done: true
+  },
+  {
+    id: 4,
+    text: '배열 내장함수 배우기',
+    done: false
+  }
+];
+
 const index = todos.findIndex(todo => todo.id === 3);
 console.log(index);
 ```
-> 객체이름 : todos / 요소들 : id, text, done
 
 ### find
 : findIndex랑 비슷하지만 몇번째인지 알아내는게 X ~> 찾아낸 값 자체 반환.
@@ -380,13 +423,30 @@ python에서도 비슷한거 있는데 거기서도 똑같이 앞에 0은 살아
 - shift\
 : 첫번째 원소를 배열에서 추출
 > 배열에서 해당 원소 사라짐
+``` js
+const numbers = [10, 20, 30, 40];
+const value = numbers.shift();
+console.log(value);
+console.log(numbers);
+```
 - pop\
 : 마지막 원소를 배열에서 추출(push 반대)
 > 배열에서 해당 원소 사라짐
+``` js
+const numbers = [10, 20, 30, 40];
+const value = numbers.pop();
+console.log(value);
+console.log(numbers);
+```
 
 ### unshift
 : shift의 반대.!\
 ~> 배열의 맨 앞에 새 원소 추가.
+``` js
+const numbers = [10, 20, 30, 40];
+numbers.unshift(5);
+console.log(numbers);
+```
 
 ### concat
 : 여러개의 배열을 하나의 배열로 합쳐줌
@@ -405,13 +465,32 @@ const concated = arr1.concat(arr2);
 : 1 2 3 4 5
 - 배열이름.join(', ')\
 : 1, 2, 3, 4, 5
+``` js
+const array = [1, 2, 3, 4, 5];
+console.log(array.join()); // 1,2,3,4,5
+console.log(array.join(' ')); // 1 2 3 4 5
+console.log(array.join(', ')); // 1, 2, 3, 4, 5
+```
 
 ### reduce
+: reduce 함수에는 두개의 파라미터를 전달한다. 첫번째 파라미터는 accumulator 와 current 를 파라미터로 가져와서 결과를 반환하는 콜백함수이고, 두번째 파라미터는 reduce 함수에서 사용 할 초기값이다.
+> accumulator : 누적된 값
 ``` js
-const numbers = [1,2,3,4,5];
-let sum = array.reduce((accumulator, current) => accumulator + current, 0);
+const numbers = [1, 2, 3, 4, 5];
+
+let sum = 0;
+numbers.forEach(n => {
+  sum += n;
+});
+console.log(sum);
 ```
-> accumulator : 누적된 값   
+``` js
+const numbers = [1, 2, 3, 4, 5];
+let sum = array.reduce((accumulator, current) => accumulator + current, 0);
+
+console.log(sum);
+```
+   
 
 ## 9. 프로토타입과 클래스
 ### 객체 생성자
@@ -453,13 +532,35 @@ dog.say();
 ```
 ### 객체 생성자 상속받기
 ``` js
-function Dog(name, sound){
-    Animal.call(this, "개", name, sound);
+function Animal(type, name, sound) {
+  this.type = type;
+  this.name = name;
+  this.sound = sound;
 }
-Dog.prototype = Aniaml.prototype;
+
+Animal.prototype.say = function() {
+  console.log(this.sound);
+};
+Animal.prototype.sharedValue = 1;
+
+function Dog(name, sound) {
+  Animal.call(this, '개', name, sound);
+}
+Dog.prototype = Animal.prototype;
+
+function Cat(name, sound) {
+  Animal.call(this, '고양이', name, sound);
+}
+Cat.prototype = Animal.prototype;
+
+const dog = new Dog('멍멍이', '멍멍');
+const cat = new Cat('야옹이', '야옹');
+
+dog.say();
+cat.say();
 ```
-> Dog 함수에서 Animal.call 호출...\
-첫번째에는 this 넣어줘야해..! 그리고 protype 공유해야해서 저렇게 설정해준겨...
+> 새로 만든 Dog 와 Cat 함수에서 Animal.call 을 호출해주고 있는데, 여기서 첫번째 인자에는 this 를 넣어주어야 하고, 그 이후에는 Animal 객체 생성자 함수에서 필요로 하는 파라미터를 넣어주어야한다.
+>> 추가적으로 prototype 을 공유해야 하기 때문에 상속받은 객체 생성자 함수를 만들고 나서 prototype 값을 Animal.prototype 으로 설정해주었다.
 
 ### 클래스
 : 객체 생성자로 구현했던 코드를 조금 더 명확하고, 깔끔하게 구현 가능.. 상속도 훨씬 쉽게 해줌.
