@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+</head>
+<body>
+    <img src="제발.png" id="my-node">
+    <button onclick="getpng()">Save PDF</button>
+
+    <script>
+        function getpng() {
+            var element = document.getElementById('my-node');
+            var opt = {
+                filename: "myfile.pdf",
+                image: {type: 'jpeg', quality: 1},
+                html2canvas: { scale: 2 },
+                jsPDF: {unit: 'mm', format: [333,475], 
+                //orientation: 'landscape'
+                }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+    </script>
+</body>
+</html>
