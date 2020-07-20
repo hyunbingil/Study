@@ -87,10 +87,10 @@
 
 ## 4. 데이터 타입
 #### 1) 숫자형
-<img src="./1.PNG">
+<img src="./img/1.PNG">
 
 #### 2) 문자형
-<img src="./2.PNG">
+<img src="./img/2.PNG">
 
 #### 3) 날짜형
-<img src="./3.PNG">
+<img src="./img/3.PNG">
