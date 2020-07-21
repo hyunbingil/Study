@@ -210,3 +210,26 @@ CNT			INT(10)		NOT NULL
 2. NAME 필드는 제약 조건을 갖고 있지 않음. 레코드를 추가할 때 해당 필드를 생략하는 경우 기본 값으로 NULL이 지정된다.
 3. GENDER 필드는 DEFAULT 제약 조건이 있기 때문에 해당 필드를 생략하고 레코드를 추가하면 기본 값으로 'M'이 지정된다.
 4. CNT 필드는 NOT NULL 필드이기 때문에 NULL을 허용하지 않으며, DEFAULT 제약 조건을 생략했기 때문에 레코드를 삽입할 경우 반드시 값을 입력해야 한다.
+
+## ALTER문
+: ```ALTER TABLE ... ADD CONSTRAINT``` 명령문으로 제약 조건 추가 가능.
+: ```NOT NULL```과 ```DEFAULT```, ```AUTO_INCREMENT```는 ```ADD CONSTRAINT```가 아닌 ```MODIFY```로 지정해줘야 하는 차이 주의하기!
+### 기존 테이블에 PRIMARY KEY로 제약 조건 걸기
+: ```NOT NULL``` 제약 조건이 반드시 설정되어 있어야함.
+``` sql
+ALTER TABLE ... ADD CONSTRAINT <제약 조건 명> PRIMARY KEY(PK 설정 필드 명)
+```
+- 예시
+``` sql
+ALTER TABLE CON6 ADD CONSTRAINT PK_ID PRIMARY KEY(ID);
+```
+### 기존 테이블에 UNIQUE 제약 조건 걸기
+: UNIQUE로 설정할 필드에 포함된 레코드 중 중복된 값이 존재하는 경우 제약 조건을 설정할 수 없음.
+``` sql
+ALTER TABLE ... ADD CONSTRAINT <제약 조건 명> UNIQUE(PK 설정 필드 명)
+```
+- 예시
+``` sql
+ALTER TABLE CON6 ADD CONSTRAINT UK_NAME UNIQUE(NAME);
+```
+> UNIQUE 제약 조건을 여러 필드에 설정하는 경우, ALTER문을 필드 개수에 맞춰 여러 번 실행하면 되는 점 참고하기.
