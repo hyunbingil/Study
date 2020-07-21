@@ -67,3 +67,13 @@ if(!pattern1.test(pw)||!pattern2.test(pw)||pw.length<8||pwlength>50){
 => 미친 이거 쓰면서 데베 연결안되서 지금 오류 나는거같은데 도랏네\
 => 아 아닌가....\
 __결론 : HTTP 404 에러 나면서 안되는 중... 살려줘......__
+
+### 해결(할 듯)
+: clone을 받았는데 .gitignore이 있다는건..... 내가 다 안받았다는거...\
+=> 그러니까 오류가 나지...\
+=> 예전 파일 어디갔는지 모르겠음....ㅠ\
+=> USB로 아예 파일 통으로 받자!\
+__다들 너무 열정적으로 일하셔서 못물어보겠다..ㅠㅠㅠㅠㅠ__
+
+
+<img src="https://lh3.googleusercontent.com/proxy/Z9XHG__wmWbwRNuhMq_HpyzmLZy8Zf5KubW7XEOHxMDYZjZTlKiqW65mVrL5Cmm2sSE2g2m_UinGe19X6ELbL7Zw9fq2p8FRF_OqKToBx2r4IcwL4bXyxcQj5Ss_9TBSIODlakFtQi5X_rHBhy4n4IjWbIUrrmmrR4vby8YmToGGsNY">
