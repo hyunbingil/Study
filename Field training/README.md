@@ -68,12 +68,55 @@ if(!pattern1.test(pw)||!pattern2.test(pw)||pw.length<8||pwlength>50){
 => 아 아닌가....\
 __결론 : HTTP 404 에러 나면서 안되는 중... 살려줘......__
 
-### 해결(할 듯)
+### 해결완료
 : clone을 받았는데 .gitignore이 있다는건..... 내가 다 안받았다는거...\
 => 그러니까 오류가 나지...\
-=> 예전 파일 어디갔는지 모르겠음....ㅠ\
-=> USB로 아예 파일 통으로 받자!\
-__다들 너무 열정적으로 일하셔서 못물어보겠다..ㅠㅠㅠㅠㅠ__
+~~=> 예전 파일 어디갔는지 모르겠음....ㅠ~~\
+~~=> USB로 아예 파일 통으로 받자!~~\
+~~__다들 너무 열정적으로 일하셔서 못물어보겠다..ㅠㅠㅠㅠㅠ__~~
 
+: 진짜 어이없는데 갑자기 되더라 왜되는거지......\
+: 너무 억울해요 안되서 계속 못하고 있었는데..................
 
-<img src="https://lh3.googleusercontent.com/proxy/Z9XHG__wmWbwRNuhMq_HpyzmLZy8Zf5KubW7XEOHxMDYZjZTlKiqW65mVrL5Cmm2sSE2g2m_UinGe19X6ELbL7Zw9fq2p8FRF_OqKToBx2r4IcwL4bXyxcQj5Ss_9TBSIODlakFtQi5X_rHBhy4n4IjWbIUrrmmrR4vby8YmToGGsNY">
+# 4. git merge 충돌
+: git에 올리려고 했는데 예전에 멋사에서 git으로 협업할 때 충돌때문에 데인적이 있어서 merge하는게 너무 두려웠다..\
+: 하지만 clone 받아도 환경설정을 따로 해줘야했는데 그 부분이 익숙하지 않아서(STS 싫어 VSCODE 좋아) 그냥 해보기로 했다..\
+: git add 와 commit을 하고 pull을 받는데 merge 충돌이 일어났다.\
+: 예전에 충돌난거 고쳐주신게 생각나서 vscode로 충돌된 부분을 찾아서 수정해주었더니 해결 ><!!
+
+# 5. 서버가 죽었다.....
+: 왜 그래...?\
+: 같은 데베를 쓰는 다른 컴퓨터들은 멀쩡했다...\
+: 저번에 이 오류때문에 낑낑대서 이번에는 그냥 여쭤봤다.\
+=> .dll이라는 파일이 달라서 오류가 났던 것.
+> <a link="https://goddaehee.tistory.com/185">dll이란?</a>
+
+=> usb로 다른 분 dll을 넣어주니까 해결!
+> 영어 공부 해야겠다........^^ 구글링 뭐라는지 모르게따.
+```
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_UNCAUGHT_CXX_EXCEPTION (0xe06d7363) at pc=0x764cc5af, pid=4796, tid=0x00001a10
+#
+# JRE version: OpenJDK Runtime Environment (8.0_252-b09) (build 1.8.0_252-b09)
+# Java VM: OpenJDK Server VM (25.252-b09 mixed mode windows-x86 )
+# Problematic frame:
+# C  [KERNELBASE.dll+0xc5af]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# An error report file with more information is saved as:
+# C:\Users\Administrator\Desktop\a\sts-3.9.3.RELEASE\hs_err_pid4796.log
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+```
+> 난 jsp가 싫다. django랑 node.js가 짱이다. 꽃이 지고야 봄인줄 알았읍니다..^^
+
+# 6. textarea 등 여러가지 input들 투명화
+: 두 달동안 pdf한다고 생각하랬는데 진짜였따 ....^^ 아무도 알려주지 않는다! 혼자서 해내보자!!!!!!!
+> 성장하는 내가 있길... D-38
