@@ -253,3 +253,6 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 ### 해결(?)
 : pom.xml이나 아무튼 코드 중 하나가 pull 받으면서 깨진듯\
 => zip 파일로 통째로 받아서 다시 실행하니 됐다...
+
+# 9. 버튼이 다른 탭으로 옮겼다가 돌아오면 보이지 않는 현상
+: 탭 자체에는 보이지 않게 설정하고, mobileview, paperview 둘 중 하나 포커스 줬을 때 보이도록 해뒀는데 탭을 옮기고 돌아오면 mobileview가 default 값으로 들어있어서 paperview 화면임에도 불구하고 안보이는 현상이 발생함.
