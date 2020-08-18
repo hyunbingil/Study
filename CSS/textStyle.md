@@ -46,3 +46,43 @@ h1, p {
 }
 ```
 
+### font-style
+1. normal\
+: 기본 값
+2. italic\
+: 기울인 스타일(이텔릭체가 디자인되어 있는 폰트에서 사용)
+3. oblique\
+: 기울인 스타일(이텔릭체 디자인이 없더라도 무조건 표현)
+``` css
+@import url('https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap');
+
+h1, p {
+	font-family: 'Nanum Pen Script', cursive;
+}
+h1{
+	font-style: italic;
+}
+```
+
+### font-weight
+: 폰트 굵기를 지정할 때 사용
+1. bold\
+: normal은 400, bold는 700의 값을 가짐.
+2. 100 단위의 숫자값 사용
+``` css
+/* 아래의 두 결과는 동일 */
+font-weight: 400;
+font-weight: normal;
+
+/* 아래의 두 결과는 동일 */
+font-weight: 700;
+font-weight: bold;
+```
+- 하나하나 굳이 안해줘도 font를 사용해 순서대로 띄어쓰기 구분하여 작성하면 된다.
+``` css
+/* ✅ font: font-style font-weight size font-family */
+font: italic bold 24px 'Nanum Pen Script', cursive;
+
+/* ✅ font: size font-family */
+font: 24px 'Nanum Pen Script', cursive;
+```
